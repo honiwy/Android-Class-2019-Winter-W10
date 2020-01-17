@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.rachel.midterm.`object`.Article
 import org.rachel.midterm.`object`.Author
+import java.sql.Time
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -31,6 +33,10 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
 
     fun readData(){
         val articleList = ArrayList<Article>()
+
+
+
+
         coroutineScope.launch {
             articles.get()
                 .addOnCompleteListener { task ->
@@ -45,7 +51,7 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
                                         id = authorData["id"].toString()
                                     ),
                                     content = document.data["content"].toString(),
-                                    createdTime = document.data["createdTime"].toString().toLong(),
+                                    createdTime = SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(Time(document.data["createdTime"].toString().toLong())),
                                     id = document.data["id"].toString(),
                                     tag = document.data["tag"].toString(),
                                     title = document.data["title"].toString()

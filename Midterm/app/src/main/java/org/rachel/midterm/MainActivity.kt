@@ -8,6 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.firebase.firestore.FirebaseFirestore
 import org.rachel.midterm.databinding.ActivityMainBinding
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         db = FirebaseFirestore.getInstance()
         val articles = db.collection("articles")
+
+
+
 
 
         val viewModel = ViewModelProviders.of(
