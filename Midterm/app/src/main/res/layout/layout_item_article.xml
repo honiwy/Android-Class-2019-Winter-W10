@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/article_appearance">
 
         <TextView
             android:id="@+id/text_title"
@@ -52,13 +53,14 @@
 
         <TextView
             android:id="@+id/text_tag"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@color/colorGray"
+            android:background="@drawable/tag_appearance"
             android:text="@{article.tag}"
-            android:textSize="14sp"
+            android:textAlignment="center"
             android:textColor="@color/colorPurple"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/text_title"
             app:layout_constraintTop_toBottomOf="@+id/text_title"
             tools:text="Hola tag" />
@@ -76,5 +78,6 @@
             app:layout_constraintStart_toStartOf="@+id/text_title"
             app:layout_constraintTop_toBottomOf="@+id/text_create_time"
             tools:text="Hola content" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
