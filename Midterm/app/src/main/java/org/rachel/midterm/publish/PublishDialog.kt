@@ -31,6 +31,9 @@ class PublishDialogFragment : DialogFragment() {
             viewModel.publishData(articles)
             dismiss()
         }
+        binding.buttonClose.setOnClickListener {
+            dismiss()
+        }
 
         return binding.root
     }
