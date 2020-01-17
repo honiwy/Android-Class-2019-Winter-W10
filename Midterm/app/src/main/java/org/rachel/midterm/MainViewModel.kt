@@ -3,7 +3,6 @@ package org.rachel.midterm
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,8 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.rachel.midterm.`object`.Article
 import org.rachel.midterm.`object`.Author
-import java.sql.Time
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -31,11 +28,8 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
         readData()
     }
 
-    fun readData(){
+    fun readData() {
         val articleList = ArrayList<Article>()
-
-
-
 
         coroutineScope.launch {
             articles.get()
@@ -51,7 +45,7 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
                                         id = authorData["id"].toString()
                                     ),
                                     content = document.data["content"].toString(),
-                                    createdTime = SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(Time(document.data["createdTime"].toString().toLong())),
+                                    createdTime = document.data["createdTime"].toString().toLong(),
                                     id = document.data["id"].toString(),
                                     tag = document.data["tag"].toString(),
                                     title = document.data["title"].toString()
@@ -107,8 +101,6 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
             "tag" to "Science"
         )
         document.set(data2 as Map<String, Any>)
-
-
     }
 
 }
