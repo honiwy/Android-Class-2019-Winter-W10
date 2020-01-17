@@ -36,13 +36,14 @@ class PublishDialogFragment : DialogFragment() {
         binding.viewModel = viewModel
         binding.buttonPublish.setOnClickListener {
             viewModel.publishData(articles)
+            dismiss()
         }
 
         return binding.root
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MessageDialog)
+        setStyle(STYLE_NO_FRAME, R.style.MessageDialog)
     }
 //    override fun onStart() {
 //        super.onStart()

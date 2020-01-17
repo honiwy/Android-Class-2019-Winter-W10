@@ -34,6 +34,7 @@
                 android:inputType="textPersonName"
                 android:maxLines="2"
                 android:textSize="18sp"
+                android:text="@={viewModel.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,8 @@
                 android:hint="@string/tag"
                 android:inputType="textPersonName"
                 android:textSize="14sp"
+                android:maxLength="12"
+                android:text="@={viewModel.tag}"
                 app:layout_constraintEnd_toEndOf="@+id/edit_title"
                 app:layout_constraintStart_toStartOf="@+id/edit_title"
                 app:layout_constraintTop_toBottomOf="@+id/edit_title" />
@@ -60,6 +63,7 @@
                 android:hint="@string/content"
                 android:inputType="textPersonName"
                 android:textSize="14sp"
+                android:text="@={viewModel.content}"
                 app:layout_constraintEnd_toEndOf="@+id/edit_title"
                 app:layout_constraintStart_toStartOf="@+id/edit_title"
                 app:layout_constraintTop_toBottomOf="@+id/edit_tag" />

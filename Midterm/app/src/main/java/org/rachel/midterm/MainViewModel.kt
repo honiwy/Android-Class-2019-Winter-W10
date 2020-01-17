@@ -68,7 +68,9 @@ class MainViewModel(val articles: CollectionReference) : ViewModel() {
                     }
                 }
                 .await()
-            articlesRetrieve.value = articleList.toList()
+            articlesRetrieve.value = articleList.toList().sortedByDescending {
+                it.createdTime
+            }
         }
     }
 
