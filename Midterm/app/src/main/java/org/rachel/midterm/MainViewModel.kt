@@ -1,52 +1,70 @@
 package org.rachel.midterm
 
 import android.util.Log
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import org.rachel.midterm.`object`.Article
 import org.rachel.midterm.`object`.Author
 import java.util.*
-import kotlin.collections.HashMap
 
 
-class MainViewModel(articless: CollectionReference) : ViewModel() {
+class MainViewModel(val articles: CollectionReference) : ViewModel() {
 
-    var articles: List<Article> = readData(articless)
+    var articlesRetrieve = MutableLiveData<List<Article>>()
 
+    // Create a Coroutine scope using a job to be able to cancel when needed
+    private var viewModelJob = Job()
 
-    fun readData(articles: CollectionReference): List<Article> {
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    init {
+        readData()
+    }
+
+    fun readData(){
         val articleList = ArrayList<Article>()
-        articles.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        val authorData = document.data["author"] as HashMap<*, *>
-                        articleList.add(
-                            Article(
-                                author = Author(
-                                    name = authorData["name"].toString(),
-                                    email = authorData["email"].toString(),
-                                    id = authorData["id"].toString()
-                                ),
-                                content = document.data["content"].toString(),
-                                createdTime = document.data["createdTime"].toString().toLong(),
-                                id = document.data["id"].toString(),
-                                tag = document.data["tag"].toString(),
-                                title = document.data["title"].toString()
+        coroutineScope.launch {
+            articles.get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            val authorData = document.data["author"] as HashMap<*, *>
+                            articleList.add(
+                                Article(
+                                    author = Author(
+                                        name = authorData["name"].toString(),
+                                        email = authorData["email"].toString(),
+                                        id = authorData["id"].toString()
+                                    ),
+                                    content = document.data["content"].toString(),
+                                    createdTime = document.data["createdTime"].toString().toLong(),
+                                    id = document.data["id"].toString(),
+                                    tag = document.data["tag"].toString(),
+                                    title = document.data["title"].toString()
+                                )
                             )
+                            Log.d("HAHA", document.id + " => " + document.data)
+                        }
+
+                    } else {
+                        Log.w(
+                            "HAHA",
+                            "Error getting documents.",
+                            task.exception
                         )
-                        Log.d("HAHA", document.id + " => " + document.data)
                     }
-                } else {
-                    Log.w(
-                        "HAHA",
-                        "Error getting documents.",
-                        task.exception
-                    )
                 }
-            }
-        return articleList.toList()
+                .await()
+            articlesRetrieve.value = articleList.toList()
+        }
     }
 
 

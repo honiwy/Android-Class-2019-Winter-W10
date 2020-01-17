@@ -11,28 +11,35 @@ import org.rachel.midterm.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProviders.of(this).get(MainViewModel::class.java)
-    }//要用到的時候再創建才不會浪費記憶體資源
+//    private val viewModel: MainViewModel by lazy {
+//        ViewModelProviders.of(this).get(MainViewModel::class.java)
+//    }//要用到的時候再創建才不會浪費記憶體資源
     lateinit var db: FirebaseFirestore
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = FirebaseFirestore.getInstance()
         val articles = db.collection("articles")
+
+
+        val viewModel = ViewModelProviders.of(
+            this,
+            ViewModelFactory(articles)
+        ).get(MainViewModel::class.java)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         val adapter = ArticleAdapter()
-        val haha = viewModel.readData(articles)
-        Log.i("HAHA","List of article: $haha")
+
         binding.recyclerView.adapter = adapter
 
-//        viewModel.articles.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                adapter.submitList(it)
-//            }
-//        })
+        viewModel.articlesRetrieve.observe(this, Observer {
+            it?.let {
+                Log.i("HAHA","List of article: $it")
+                adapter.submitList(it)
+            }
+        })
 
 
 
