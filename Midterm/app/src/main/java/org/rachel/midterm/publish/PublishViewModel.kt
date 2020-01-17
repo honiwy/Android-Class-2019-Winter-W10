@@ -37,7 +37,6 @@ class PublishViewModel : ViewModel() {
             title = title.value ?: "Someone forget enter title",
             tag = tag.value ?: ""
         )
-        Log.i("HAHA", "Wayne?: ${isWayne.value},  Data: $data")
         document.set(data)
     }
 

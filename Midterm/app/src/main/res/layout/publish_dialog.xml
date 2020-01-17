@@ -18,7 +18,7 @@
             android:id="@+id/layout_mid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGray"
+            android:background="@drawable/publish_appearance"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -86,11 +86,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/user"
                 android:checked="@={viewModel.isWayne}"
+                android:text="@string/user"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/switch_user"
+                app:layout_constraintStart_toEndOf="@+id/switch_user"
+                app:layout_constraintTop_toTopOf="@+id/switch_user"
+                app:srcCompat="@drawable/doctor" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
