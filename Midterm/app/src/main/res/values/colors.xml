@@ -6,4 +6,5 @@
     <color name="colorPurple">#663399</color>
     <color name="colorLightPurple">#9863BE</color>
     <color name="colorGray">#CCCCCC</color>
+    <color name="translucent_80">#cc000000</color>
 </resources>

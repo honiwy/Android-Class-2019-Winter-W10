@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Midterm</string>
+    <string name="title">Title</string>
+    <string name="tag">Tag</string>
+    <string name="content">Content</string>
+    <string name="publish">Publish Article</string>
 </resources>
